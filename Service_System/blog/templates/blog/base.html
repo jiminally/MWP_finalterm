@@ -4,14 +4,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jimin's Blog</title>
-    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <title>🌌 Hear Here Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', 'Malgun Gothic', sans-serif;
+            background: linear-gradient(180deg, #0a1128 0%, #1a2332 100%);
+            min-height: 100vh;
+            color: white;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 별 배경 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* 헤더 */
+        .page-header {
+            background: transparent;
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-size: 56px;
+            margin: 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .page-header h1 a,
+        .page-header h1 a:visited,
+        .page-header h1 a:active {
+            color: #FFD700;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            text-decoration: none;
+        }
+
+        /* 컨테이너 */
+        .content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 30px 60px 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 그리드 (post_list용) */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        /* 포스트 카드 */
+        .post {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+
+        .post:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .post.new { border-color: rgba(255, 215, 0, 0.5); }
+        .post.call { 
+            border-color: rgba(255, 68, 68, 0.5);
+            animation: pulse-border 2s infinite;
+        }
+        .post.delivery { border-color: rgba(68, 136, 255, 0.5); }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(255, 68, 68, 0.5); }
+            50% { border-color: rgba(255, 68, 68, 1); }
+        }
+
+        /* 포스트 링크 */
+        .post a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+        }
+
+        /* 포스트 제목 */
+        .post h1,
+        .post h2 {
+            color: #FFD700;
+            padding: 25px;
+            margin: 0;
+        }
+
+        .post h1 a,
+        .post h1 a:visited,
+        .post h2 a,
+        .post h2 a:visited {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        /* 포스트 내용 */
+        .post p {
+            color: #ddd;
+            padding: 0 25px 25px 25px;
+            line-height: 1.8;
+        }
+
+        /* 이미지 */
+        .post img,
+        .blog-image-list {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            border-radius: 0;
+        }
+
+        /* 날짜 */
+        .date {
+            color: #888;
+            font-size: 14px;
+            padding: 0 25px 10px 25px;
+        }
+
+        /* 타입 뱃지 */
+        .post-type-badge {
+            display: inline-block;
+            padding: 6px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 20px 25px 15px 25px;
+        }
+
+        .post-type-badge.new {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+        }
+
+        .post-type-badge.call {
+            background: linear-gradient(135deg, #ff4444, #cc0000);
+            color: white;
+        }
+
+        .post-type-badge.delivery {
+            background: linear-gradient(135deg, #4488ff, #0044cc);
+            color: white;
+        }
+
+        /* 상세 페이지 스타일 */
+        .post-detail {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 50px;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .post-detail img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 3px solid rgba(255, 215, 0, 0.3);
+        }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .posts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 42px;
+            }
+
+            .posts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 0 20px 40px 20px;
+            }
+
+            .post-detail {
+                padding: 30px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- 별 배경 -->
+    <div class="stars" id="stars"></div>
+
+    <!-- 헤더 -->
     <div class="page-header">
-        <h1><a href="/">Jimin's Blog</a></h1>
+        <h1><a href="/">🌌 Hear Here Blog</a></h1>
     </div>
     
+    <!-- 메인 컨텐츠 -->
     <div class="content container">
         <div class="row">
             <div class="col-md-8">
@@ -20,5 +256,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // 별 생성
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 200; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            starsContainer.appendChild(star);
+        }
+    </script>
 </body>
 </html>

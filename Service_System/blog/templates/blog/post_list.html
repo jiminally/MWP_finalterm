@@ -1,18 +1,36 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+<div class="posts-grid">
     {% for post in posts %}
-        <div class="post">
-            <div class="date">
-                {{ post.published_date }}
-            </div>
-            <h1><a href="">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaksbr }}</p>
-            
-            <!-- 이미지 추가 -->
+    <div class="post {{ post.customer_type }}">
+        <a href="{% url 'post_detail' pk=post.pk %}">
             {% if post.image %}
-                <img src="{{ post.image.url }}" class="rounded blog-image-list" style="max-width: 400px; height: auto; display: block; margin: 10px auto;">
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="blog-image-list">
+            {% else %}
+                <div style="width:100%; height:250px; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; font-size:60px;">
+                    {% if post.customer_type == 'new' %}⭐
+                    {% elif post.customer_type == 'call' %}🔔
+                    {% elif post.customer_type == 'delivery' %}📦
+                    {% else %}🖼️{% endif %}
+                </div>
             {% endif %}
-        </div>
+            
+            {% if post.customer_type == 'new' %}
+                <span class="post-type-badge new">⭐ 새로운 손님</span>
+            {% elif post.customer_type == 'call' %}
+                <span class="post-type-badge call">🔔 손님 호출</span>
+            {% elif post.customer_type == 'delivery' %}
+                <span class="post-type-badge delivery">📦 배달원</span>
+            {% endif %}
+            
+            <h2>{{ post.title }}</h2>
+            <div class="date">
+                📅 {{ post.created_date|date:"Y-m-d" }} 🕐 {{ post.created_date|date:"H:i" }}
+            </div>
+            <p>{{ post.text|truncatewords:15 }}</p>
+        </a>
+    </div>
     {% endfor %}
+</div>
 {% endblock %}

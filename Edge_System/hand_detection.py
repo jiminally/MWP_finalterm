@@ -7,15 +7,64 @@ MediaPipe Pose를 이용한 손 제스처 감지 모듈
 import cv2
 import numpy as np
 
+# MediaPipe import 시도 (최신 버전 호환)
+MEDIAPIPE_AVAILABLE = False
+mp_pose = None
+mp_hands = None
+mp_drawing = None
+mp_drawing_styles = None
+
+import_error_messages = []
+
 try:
+    # 방법 1: 최신 MediaPipe 직접 경로 import (가장 안정적)
     from mediapipe.python.solutions import pose as mp_pose
     from mediapipe.python.solutions import hands as mp_hands
     from mediapipe.python.solutions import drawing_utils as mp_drawing
     from mediapipe.python.solutions import drawing_styles as mp_drawing_styles
     MEDIAPIPE_AVAILABLE = True
-except ImportError:
-    MEDIAPIPE_AVAILABLE = False
-    print("⚠️ MediaPipe import failed")
+    print("✅ MediaPipe imported (direct path method)")
+except Exception as e:
+    import_error_messages.append(f"Method 1 (direct path): {type(e).__name__}: {e}")
+    try:
+        # 방법 2: 최신 MediaPipe solutions import 방식
+        from mediapipe import solutions
+        mp_pose = solutions.pose
+        mp_hands = solutions.hands
+        mp_drawing = solutions.drawing_utils
+        mp_drawing_styles = solutions.drawing_styles
+        MEDIAPIPE_AVAILABLE = True
+        print("✅ MediaPipe imported (solutions import method)")
+    except Exception as e:
+        import_error_messages.append(f"Method 2 (solutions): {type(e).__name__}: {e}")
+        try:
+            # 방법 3: 표준 mediapipe as mp 방식
+            import mediapipe as mp
+            if hasattr(mp, 'solutions'):
+                mp_pose = mp.solutions.pose
+                mp_hands = mp.solutions.hands
+                mp_drawing = mp.solutions.drawing_utils
+                mp_drawing_styles = mp.solutions.drawing_styles
+                MEDIAPIPE_AVAILABLE = True
+                print("✅ MediaPipe imported (mp.solutions method)")
+            else:
+                # mp는 있지만 solutions가 없는 경우 - 구조 확인
+                print(f"⚠️ mediapipe 모듈은 있지만 solutions 속성이 없습니다.")
+                print(f"   mediapipe 속성: {[x for x in dir(mp) if not x.startswith('_')][:10]}")
+                raise AttributeError("mp.solutions not available")
+        except Exception as e:
+            import_error_messages.append(f"Method 3 (mp.solutions): {type(e).__name__}: {e}")
+            MEDIAPIPE_AVAILABLE = False
+            print("⚠️ MediaPipe import failed - 모든 방법 실패")
+            print("   시도한 방법들:")
+            for msg in import_error_messages:
+                print(f"   - {msg}")
+            print("\n   ⚠️ 중요: MediaPipe 최신 버전(0.11+)은 구조가 변경되었습니다!")
+            print("   현재 설치된 버전은 'tasks' API만 지원합니다.")
+            print("\n   해결 방법 (구버전 설치 - 권장):")
+            print("   1. pip uninstall mediapipe -y")
+            print("   2. pip install mediapipe==0.10.8")
+            print("\n   또는 최신 버전 유지 시 코드를 tasks API로 재작성 필요")
 
 class HandDetector:
     """손 제스처 감지 클래스 (Pose + Hands)"""

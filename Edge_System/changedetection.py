@@ -18,7 +18,7 @@ class ChangeDetection:
     # ═══════════════════════════════════════════════
     # 🎥 카메라 모드 설정 (여기만 바꾸면 됨!)
     # ═══════════════════════════════════════════════
-    CAMERA_MODE = "entrance_inside"  # "entrance_outside", "entrance_inside", "counter"
+    CAMERA_MODE = "counter"  # "entrance_outside", "entrance_inside", "counter"
     
     # entrance_outside: 문 밖 카메라 (배달원 감지)
     #   - person + motorcycle 감지 → 배달원
