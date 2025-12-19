@@ -1,0 +1,2 @@
+서비스 URL :  https://jiminally.pythonanywhere.com/
+소스코드 git 주소 : https://github.com/jiminally/MWP_finalterm

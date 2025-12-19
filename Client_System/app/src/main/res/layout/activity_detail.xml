@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 별 배경 -->
+    <com.example.client_system.StarryBackgroundView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:background="@color/space_dark"/>
+
+    <!-- 기존 레이아웃 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <!-- 헤더 -->
+    <LinearLayout
+        android:id="@+id/detail_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="15dp"
+        android:gravity="center_vertical"
+            android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_counter"
+            android:src="@android:drawable/ic_menu_revert"
+            android:tint="@color/text_primary"
+            android:contentDescription="뒤로가기"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="15dp"
+            android:text="손님 상세"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"/>
+    </LinearLayout>
+
+    <!-- 손님 이미지 (크게) -->
+    <ImageView
+        android:id="@+id/iv_detail_image"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/space_card"
+        android:scaleType="centerCrop"
+        android:contentDescription="손님 사진"
+        app:layout_constraintTop_toBottomOf="@id/detail_header"/>
+
+    <!-- 정보 카드 -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/info_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        app:cardBackgroundColor="@color/space_card_transparent"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/iv_detail_image">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- 상태 -->
+            <TextView
+                android:id="@+id/tv_detail_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⭐ 새로운 손님!"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_marginBottom="20dp"/>
+
+            <!-- 날짜 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="📅 날짜"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="2024.12.13"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- 시간 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="⏰ 시간"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="오전 6:10"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- 위치 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="12dp">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="📍 위치"
+                    android:textSize="14sp"
+                    android:textColor="@color/text_secondary"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="카운터"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- 액션 버튼 -->
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_margin="20dp"
+        android:text="🗑️ 삭제"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:background="@drawable/bg_button_delete"
+        android:elevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/info_card"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

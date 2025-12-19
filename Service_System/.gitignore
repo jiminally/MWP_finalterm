@@ -1,0 +1,27 @@
+# Firebase 서비스 계정 키 (절대 공개하면 안됨!)
+firebase-service-account.json
+*.json
+
+# Python
+*.pyc
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# 가상환경
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

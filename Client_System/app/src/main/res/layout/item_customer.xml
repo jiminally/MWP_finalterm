@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardBackgroundColor="@color/space_card"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <!-- 손님 이미지 -->
+        <ImageView
+            android:id="@+id/iv_customer"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@drawable/bg_image"
+            android:scaleType="centerCrop"
+            android:contentDescription="손님 사진"/>
+
+        <!-- 손님 정보 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp">
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⭐ 새로운 손님!"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="⏰ 2분 전 · 카운터"
+                android:textSize="13sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <!-- 응대 완료 버튼 -->
+        <Button
+            android:id="@+id/btn_complete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="응대 완료"
+            android:textSize="12sp"
+            android:textColor="@color/text_primary"
+            android:background="@drawable/bg_counter"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"/>
+
+        <!-- 화살표 -->
+        <TextView
+            android:id="@+id/tv_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="›"
+            android:textSize="24sp"
+            android:textColor="@color/text_secondary"/>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1038848518694",
+    "project_id": "quiet-cafe-e4309",
+    "storage_bucket": "quiet-cafe-e4309.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038848518694:android:74725d25e3816ae9db54e7",
+        "android_client_info": {
+          "package_name": "com.example.client_system"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK9_pgANSe1pRXh3jMWHYW8joo64LhwTI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
